@@ -13,7 +13,7 @@ jobs:
 
       - name: download
         run: |
-          mkdir dist && curl -O 'https://astuteinternet.dl.sourceforge.net/project/opencvlibrary/3.4.7/opencv-3.4.7-android-sdk.zip'
+          mkdir dist && cd dist && curl -O 'https://astuteinternet.dl.sourceforge.net/project/opencvlibrary/3.4.7/opencv-3.4.7-android-sdk.zip'
 
       - name: deploy
         uses: burnett01/rsync-deployments@4.0
