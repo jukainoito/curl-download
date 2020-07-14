@@ -1,0 +1,26 @@
+name: delpoy to test server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: download
+        run: |
+          mkdir dist && curl -O 'https://astuteinternet.dl.sourceforge.net/project/opencvlibrary/3.4.7/opencv-3.4.7-android-sdk.zip'
+
+      - name: deploy
+        uses: burnett01/rsync-deployments@4.0
+        with:
+          switches: -avzr --delete --exclude=".git" --exclude=".github"
+          path: ./dist/
+          remote_path: /download/
+          remote_host: ${{ secrets.DEPLOY_TEST_HOST }}
+          remote_user: root
+          remote_key: ${{ secrets.DEPLOY_TEST_KEY }}
